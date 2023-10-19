@@ -1,0 +1,6 @@
+mysql_data/
+mysql/init/
+mysql/my.conf
+src/api/tmp/
+post_cmd.txt
+pre_cmd.txt
