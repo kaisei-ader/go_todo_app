@@ -1,31 +1,29 @@
-version: "3"
+version: "3.4"
 
 services:
-  api:
-    container_name: api
+  app:
+    container_name: go-todo-app
     build:
       context: .
-      dockerfile: docker/go/Dockerfile
+      dockerfile: ./Dockerfile
     ports:
-      - 8080:8080
-    links:
-      - mysql
+      - 80:8080
     tty: true
     volumes:
-      - ./src/api:/go/src/api
-
+      - .:/go/src/app
+    depends_on:
+      - "mysql"
   mysql:
-    container_name: mysql
-    build:
-      context: .
-      dockerfile: docker/mysql/Dockerfile
-    hostname: mysql
+    container_name: go-todo-mysql
+    image: "mysql:8.0"
     ports:
       - "3306:3306"
-    env_file:
-      - ./docker/mysql/.env
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --skip-character-set-client-handshake
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todo-app
+      MYSQL_USER: todo-app
+      MYSQL_PASSWORD: todo-app
+      TZ: "Asia/Tokyo"
     volumes:
-      - "./mysql_data/mysql:/var/lib/mysql"
-      - "./docker/mysql/my.conf:/etc/mysql/my.conf"
-      - "./docker/mysql/init/:/docker-entrypoint-initdb.d"
+      - "./tmp/mysql:/var/lib/mysql"
+      - "./migrations:/docker-entrypoint-initdb.d"
