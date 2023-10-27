@@ -15,7 +15,7 @@ services:
       - "mysql"
   mysql:
     container_name: go-todo-mysql
-    image: "mysql:8.0"
+    image: mysql:5.7
     ports:
       - "3306:3306"
     environment:
@@ -26,4 +26,5 @@ services:
       TZ: "Asia/Tokyo"
     volumes:
       - "./tmp/mysql:/var/lib/mysql"
-      - "./migrations:/docker-entrypoint-initdb.d"
+      - "./db/my.cnf:/etc/mysql/conf.d/my.cnf"
+      - "./db/sql:/docker-entrypoint-initdb.d"

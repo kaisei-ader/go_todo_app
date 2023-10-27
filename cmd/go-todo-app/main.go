@@ -8,41 +8,24 @@ import (
 
 func getTodo(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "todo!",
+		"message": "GET TODO!",
 	})
 }
 
-func getTodoDetail(c *gin.Context) {
+func postTodo(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "todo_detail!",
+		"message": "POST TODO!",
 	})
 }
 
 func main() {
 	router := gin.Default()
 
-	router.GET("/todo", getTodo)
-	router.GET("/todo/detail", getTodoDetail)
+	todo := router.Group("/todo")
+	{
+		todo.GET("", getTodo)
+		todo.POST("", postTodo)
+	}
 
 	router.Run()
 }
-
-// package controller
-
-// import (
-// 	"net/http"
-
-// 	"github.com/gin-gonic/gin"
-// )
-
-// func getTodo(c *gin.Context) {
-// 	c.JSON(http.StatusOK, gin.H{
-// 		"message": "todo",
-// 	})
-// }
-
-// func getTodoDetail(c *gin.Context) {
-// 	c.JSON(http.StatusOK, gin.H{
-// 		"message": "todo_detail",
-// 	})
-// }

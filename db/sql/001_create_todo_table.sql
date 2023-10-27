@@ -5,4 +5,6 @@ CREATE TABLE `todo` (
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '作成日時',
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
 PRIMARY KEY(`id`)
-) DEFAULT CHARSET=utf8mb4;
+) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+insert into todo values (1,'TASK','1','2023-10-27','2023-10-27');
